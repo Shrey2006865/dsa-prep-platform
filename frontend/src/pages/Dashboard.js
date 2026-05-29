@@ -7,6 +7,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recha
 function Dashboard() {
   const [questions, setQuestions] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const [form, setForm] = useState({ title: '', topic: 'Arrays', difficulty: 'Easy', platform: 'LeetCode', notes: '' });
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -75,6 +76,9 @@ function Dashboard() {
 };
 
 const streak = calculateStreak();
+const filteredQuestions = questions.filter(q =>
+  q.title.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
   return (
     <div style={styles.container}>
@@ -162,8 +166,15 @@ const streak = calculateStreak();
 
         <div style={styles.section}>
           <h2 style={styles.sectionTitle}>Recent Questions</h2>
-          {questions.length === 0 && <p style={{ color: '#94a3b8' }}>No questions yet. Add your first one!</p>}
-          {questions.slice(0, 10).map(q => (
+          <input
+          style={styles.input}
+          type="text"
+  placeholder="🔍 Search questions..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+/>
+          {filteredQuestions.length === 0 && <p style={{ color: '#94a3b8' }}>No questions found.</p>}
+          {filteredQuestions.slice(0, 10).map(q => (
             <div key={q._id} style={styles.questionCard}>
               <div>
                 <p style={styles.questionTitle}>{q.title}</p>
