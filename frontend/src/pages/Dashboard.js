@@ -8,6 +8,8 @@ function Dashboard() {
   const [questions, setQuestions] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedTopic, setSelectedTopic] = useState('All');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('All');
   const [form, setForm] = useState({ title: '', topic: 'Arrays', difficulty: 'Easy', platform: 'LeetCode', notes: '' });
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -76,9 +78,17 @@ function Dashboard() {
 };
 
 const streak = calculateStreak();
-const filteredQuestions = questions.filter(q =>
-  q.title.toLowerCase().includes(searchTerm.toLowerCase())
-);
+const filteredQuestions = questions.filter(q => {
+  const matchesSearch = q.title.toLowerCase().includes(searchTerm.toLowerCase());
+
+  const matchesTopic =
+    selectedTopic === 'All' || q.topic === selectedTopic;
+
+  const matchesDifficulty =
+    selectedDifficulty === 'All' || q.difficulty === selectedDifficulty;
+
+  return matchesSearch && matchesTopic && matchesDifficulty;
+});
 
   return (
     <div style={styles.container}>
@@ -172,7 +182,33 @@ const filteredQuestions = questions.filter(q =>
   placeholder="🔍 Search questions..."
   value={searchTerm}
   onChange={(e) => setSearchTerm(e.target.value)}
+  
 />
+<div style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
+
+  <select
+    style={styles.input}
+    value={selectedTopic}
+    onChange={(e) => setSelectedTopic(e.target.value)}
+  >
+    <option>All</option>
+    {topics.map(topic => (
+      <option key={topic}>{topic}</option>
+    ))}
+  </select>
+
+  <select
+    style={styles.input}
+    value={selectedDifficulty}
+    onChange={(e) => setSelectedDifficulty(e.target.value)}
+  >
+    <option>All</option>
+    <option>Easy</option>
+    <option>Medium</option>
+    <option>Hard</option>
+  </select>
+
+</div>
           {filteredQuestions.length === 0 && <p style={{ color: '#94a3b8' }}>No questions found.</p>}
           {filteredQuestions.slice(0, 10).map(q => (
             <div key={q._id} style={styles.questionCard}>
