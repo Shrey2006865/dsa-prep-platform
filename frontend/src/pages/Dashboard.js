@@ -266,17 +266,6 @@ const filteredQuestions = questions.filter(q => {
   </span>
 
   <button
-    onClick={() => handleDelete(q._id)}
-    style={{
-      background: '#ef4444',
-      color: '#fff',
-      border: 'none',
-      padding: '6px 10px',
-      borderRadius: '6px',
-      cursor: 'pointer'
-    }}
-  >
-    <button
   onClick={() => {
     setEditingQuestion(q);
     setForm({
@@ -299,8 +288,20 @@ const filteredQuestions = questions.filter(q => {
 >
   ✏️ Edit
 </button>
-    🗑 Delete
-  </button>
+
+<button
+  onClick={() => handleDelete(q._id)}
+  style={{
+    background: '#ef4444',
+    color: '#fff',
+    border: 'none',
+    padding: '6px 10px',
+    borderRadius: '6px',
+    cursor: 'pointer'
+  }}
+>
+  🗑 Delete
+</button>
 </div>
             </div>
           ))}
