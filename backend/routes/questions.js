@@ -83,6 +83,34 @@ router.get('/topic/:topic', auth, async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
+// Update a question
+router.put('/:id', auth, async (req, res) => {
+  try {
+    const { title, topic, difficulty, platform, notes } = req.body;
+
+    const question = await Question.findByIdAndUpdate(
+      req.params.id,
+      {
+        title,
+        topic,
+        difficulty,
+        platform,
+        notes
+      },
+      { new: true }
+    );
+
+    res.json({
+      message: 'Question updated successfully',
+      question
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      error: error.message
+    });
+  }
+});
 
 // Delete a question
 router.delete('/:id', auth, async (req, res) => {

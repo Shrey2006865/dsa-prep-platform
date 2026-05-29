@@ -10,6 +10,7 @@ function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
+  const [editingQuestion, setEditingQuestion] = useState(null);
   const [form, setForm] = useState({ title: '', topic: 'Arrays', difficulty: 'Easy', platform: 'LeetCode', notes: '' });
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -31,9 +32,25 @@ function Dashboard() {
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://dsa-prep-platform.onrender.com/api/questions/add', form, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      if (editingQuestion) {
+  await axios.put(
+    `https://dsa-prep-platform.onrender.com/api/questions/${editingQuestion._id}`,
+    form,
+    {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+  );
+
+  setEditingQuestion(null);
+} else {
+  await axios.post(
+    'https://dsa-prep-platform.onrender.com/api/questions/add',
+    form,
+    {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+  );
+}
       setShowForm(false);
       setForm({ title: '', topic: 'Arrays', difficulty: 'Easy', platform: 'LeetCode', notes: '' });
       fetchQuestions();
@@ -186,7 +203,7 @@ const filteredQuestions = questions.filter(q => {
                 <option>LeetCode</option><option>HackerRank</option><option>CodeForces</option><option>GeeksForGeeks</option><option>Other</option>
               </select>
               <textarea style={styles.input} placeholder="Notes (optional)" value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} />
-              <button style={styles.addBtn} type="submit">Save Question</button>
+              <button style={styles.addBtn} type="submit">{editingQuestion ? 'Update Question' : 'Save Question'}</button>
             </form>
           </div>
         )}
@@ -259,6 +276,29 @@ const filteredQuestions = questions.filter(q => {
       cursor: 'pointer'
     }}
   >
+    <button
+  onClick={() => {
+    setEditingQuestion(q);
+    setForm({
+      title: q.title,
+      topic: q.topic,
+      difficulty: q.difficulty,
+      platform: q.platform,
+      notes: q.notes || ''
+    });
+    setShowForm(true);
+  }}
+  style={{
+    background: '#3b82f6',
+    color: '#fff',
+    border: 'none',
+    padding: '6px 10px',
+    borderRadius: '6px',
+    cursor: 'pointer'
+  }}
+>
+  ✏️ Edit
+</button>
     🗑 Delete
   </button>
 </div>
