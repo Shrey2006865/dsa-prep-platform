@@ -41,6 +41,23 @@ function Dashboard() {
       console.log('Error adding question');
     }
   };
+  const handleDelete = async (id) => {
+  try {
+    await axios.delete(
+      `https://dsa-prep-platform.onrender.com/api/questions/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    fetchQuestions();
+  } catch (err) {
+    console.log('Delete failed');
+  }
+};
+
 
   const handleLogout = () => {
     localStorage.clear();
@@ -216,9 +233,35 @@ const filteredQuestions = questions.filter(q => {
                 <p style={styles.questionTitle}>{q.title}</p>
                 <p style={styles.questionMeta}>{q.topic} • {q.platform}</p>
               </div>
-              <span style={{ ...styles.diffBadge, background: q.difficulty === 'Easy' ? '#22c55e' : q.difficulty === 'Medium' ? '#f59e0b' : '#ef4444' }}>
-                {q.difficulty}
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+  <span
+    style={{
+      ...styles.diffBadge,
+      background:
+        q.difficulty === 'Easy'
+          ? '#22c55e'
+          : q.difficulty === 'Medium'
+          ? '#f59e0b'
+          : '#ef4444'
+    }}
+  >
+    {q.difficulty}
+  </span>
+
+  <button
+    onClick={() => handleDelete(q._id)}
+    style={{
+      background: '#ef4444',
+      color: '#fff',
+      border: 'none',
+      padding: '6px 10px',
+      borderRadius: '6px',
+      cursor: 'pointer'
+    }}
+  >
+    🗑 Delete
+  </button>
+</div>
             </div>
           ))}
         </div>
