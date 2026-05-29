@@ -46,6 +46,35 @@ function Dashboard() {
 
   const topics = ['Arrays', 'Linked List', 'Trees', 'Graphs', 'Dynamic Programming', 'Sorting', 'Searching', 'Stacks', 'Queues', 'Strings', 'Math', 'Other'];
   const topicCounts = topics.map(t => ({ topic: t, count: questions.filter(q => q.topic === t).length }));
+  const calculateStreak = () => {
+  if (questions.length === 0) return 0;
+
+  const dates = [
+    ...new Set(
+      questions.map(q => new Date(q.solvedAt).toDateString())
+    )
+  ];
+
+  dates.sort((a, b) => new Date(b) - new Date(a));
+
+  let streak = 0;
+  let currentDate = new Date();
+
+  while (true) {
+    const dateString = currentDate.toDateString();
+
+    if (dates.includes(dateString)) {
+      streak++;
+      currentDate.setDate(currentDate.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+
+  return streak;
+};
+
+const streak = calculateStreak();
 
   return (
     <div style={styles.container}>
@@ -74,6 +103,10 @@ function Dashboard() {
           <div style={styles.statCard}>
             <h2 style={styles.statNum}>{questions.filter(q => q.difficulty === 'Hard').length}</h2>
             <p style={styles.statLabel}>Hard</p>
+          </div>
+          <div style={styles.statCard}>
+            <h2 style={styles.statNum}>🔥 {streak}</h2>
+            <p style={styles.statLabel}>Day Streak</p>
           </div>
         </div>
 
@@ -154,7 +187,7 @@ const styles = {
   welcome: { color: '#94a3b8', marginRight: '16px' },
   logoutBtn: { padding: '8px 16px', background: 'transparent', border: '1px solid #334155', color: '#94a3b8', borderRadius: '8px', cursor: 'pointer' },
   content: { padding: '32px', maxWidth: '900px', margin: '0 auto' },
-  statsRow: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '32px' },
+  statsRow: { display: 'grid',gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginBottom: '32px' },
   statCard: { background: '#1e293b', padding: '24px', borderRadius: '12px', textAlign: 'center' },
   statNum: { color: '#6366f1', fontSize: '36px', margin: 0 },
   statLabel: { color: '#94a3b8', margin: '4px 0 0' },
