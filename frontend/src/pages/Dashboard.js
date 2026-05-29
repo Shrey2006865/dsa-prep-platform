@@ -14,7 +14,7 @@ function Dashboard() {
 
   const fetchQuestions = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/questions/all', {
+      const res = await axios.get('https://dsa-prep-platform.onrender.com/api/questions/all', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setQuestions(res.data);
@@ -28,7 +28,7 @@ function Dashboard() {
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/questions/add', form, {
+      await axios.post('https://dsa-prep-platform.onrender.com/api/questions/add', form, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setShowForm(false);
