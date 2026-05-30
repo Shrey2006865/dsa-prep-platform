@@ -112,6 +112,20 @@ JWT_SECRET=your_secret_key
 * Calendar Heatmap
 * AI-Powered Hints
 * Coding Contest Tracker
+  ## 📸 Screenshots
+
+### Login Page
+
+![Login Page](login-page.png)
+
+### Dashboard (Light Mode)
+
+![Dashboard Light](dashboard-light.png)
+
+### Dashboard (Dark Mode)
+
+![Dashboard Dark](dashboard-dark.png)
+
 
 ## 👨‍💻 Author
 
