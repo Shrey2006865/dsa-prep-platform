@@ -1,134 +1,81 @@
-# 🚀 DSA Prep Platform
+# DSA Prep Platform 🚀
 
-A full-stack web application to track Data Structures & Algorithms (DSA) practice, monitor progress, maintain daily streaks, and visualize performance through an interactive dashboard.
+A full-stack DSA preparation platform that helps users track coding progress, manage solved problems, maintain streaks, visualize topic-wise progress, and unlock achievements.
 
 ## 🌐 Live Demo
 
-Frontend: https://dsa-prep-platform.vercel.app
-
-Backend: https://dsa-prep-platform.onrender.com
+https://dsa-prep-platform.vercel.app
 
 ## ✨ Features
 
-### 🔐 Authentication
-
-* User Registration
-* User Login
-* JWT-based Authentication
-* Protected Routes
-
-### 📝 Question Management
-
-* Add DSA Questions
-* Edit Questions
-* Delete Questions
-* View Recent Questions
-
-### 🔍 Search & Filters
-
-* Search Questions by Title
-* Filter by Topic
-* Filter by Difficulty
-
-### 📊 Analytics Dashboard
-
-* Total Questions Solved
-* Easy / Medium / Hard Statistics
+* User Authentication (Login/Register)
+* Add, Edit & Delete Questions
+* Search & Filter Questions
 * Topic-wise Progress Tracking
-* Interactive Charts
+* Interactive Dashboard
+* Dark / Light Mode
+* Daily Streak Tracking
+* Achievement Badges System
+* Responsive UI
+* Secure Backend APIs
 
-### 🔥 Daily Streak System
-
-* Track Daily Activity
-* Current Streak Counter
-* Consistent Practice Monitoring
-
-### 🎨 User Experience
-
-* Dark Mode / Light Mode
-* Responsive Design
-* Clean Dashboard UI
-
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
 ### Frontend
 
 * React.js
 * Axios
 * Recharts
-* CSS-in-JS
+* CSS
 
 ### Backend
 
 * Node.js
 * Express.js
 * MongoDB
-* Mongoose
 * JWT Authentication
 
-### Deployment
+## 📊 Dashboard Features
 
-* Vercel (Frontend)
-* Render (Backend)
-
-## 📸 Screenshots
-
-Add screenshots of:
-
-1. Login Page
-2. Dashboard
-3. Dark Mode
-4. Add Question Form
+* Total Solved Questions
+* Difficulty Distribution
+* Topic Progress Charts
+* Streak Counter
+* Achievement Unlocks
 
 ## 🚀 Installation
 
 ### Clone Repository
 
+```bash
 git clone https://github.com/Shrey2006865/dsa-prep-platform.git
+```
 
 ### Frontend
 
+```bash
 cd frontend
 npm install
 npm start
+```
 
 ### Backend
 
+```bash
 cd backend
 npm install
 npm run dev
+```
 
-### Environment Variables
+## 📸 Screenshots
 
-Create a .env file in backend:
+Add:
 
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-
-## 📈 Future Improvements
-
-* Achievement Badges
-* Weekly Analytics
-* Calendar Heatmap
-* AI-Powered Hints
-* Coding Contest Tracker
-  ## 📸 Screenshots
-
-### Login Page
-
-![Login Page](login-page.png)
-
-### Dashboard (Light Mode)
-
-![Dashboard Light](dashboard-light.png)
-
-### Dashboard (Dark Mode)
-
-![Dashboard Dark](dashboard-dark.png)
-
+* Login Page
+* Dashboard
+* Dark Mode Dashboard
+* Achievements Section
 
 ## 👨‍💻 Author
 
 Shreyash Tajne
-
-GitHub: https://github.com/Shrey2006865
