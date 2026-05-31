@@ -139,6 +139,22 @@ const filteredQuestions = questions.filter(q => {
 
   return matchesSearch && matchesTopic && matchesDifficulty;
 });
+const achievements = [];
+
+if (questions.length >= 1)
+  achievements.push("🥉 First Problem Solved");
+
+if (questions.length >= 10)
+  achievements.push("🥈 10 Problems Solved");
+
+if (questions.length >= 50)
+  achievements.push("🥇 50 Problems Solved");
+
+if (streak >= 7)
+  achievements.push("🔥 7 Day Streak");
+
+if (new Set(questions.map(q => q.topic)).size >= 5)
+  achievements.push("🧠 DSA Explorer");
 
   return (
     <div style={styles.container}>
@@ -175,8 +191,7 @@ const filteredQuestions = questions.filter(q => {
 
       <div
   style={{
-    ...styles.container,
-    background: theme.bg,
+    ...styles.content,
     color: theme.text
   }}
 >
@@ -234,11 +249,50 @@ const filteredQuestions = questions.filter(q => {
     background: theme.section
   }}
 >
-          <h2
+  <h2
+    style={{
+      ...styles.sectionTitle,
+      color: theme.text
+    }}
+  >
+    🏆 Achievements
+  </h2>
+
+  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+    {achievements.map((badge, index) => (
+      <div
+        key={index}
+        style={{
+          padding: '12px 18px',
+          borderRadius: '12px',
+          background: darkMode ? '#334155' : '#e2e8f0',
+          fontWeight: '600'
+        }}
+      >
+        {badge}
+      </div>
+    ))}
+  </div>
+</div>
+         </div>
+
+<div
   style={{
-    ...styles.sectionTitle,
-    color: theme.text
+    ...styles.section,
+    background: theme.section,
+     padding: '20px',
+    borderRadius: '16px',
+    marginBottom: '24px'
+    
   }}
+>
+  <h2
+    style={{
+      ...styles.sectionTitle,
+      color: theme.text
+    }}
+  
+  
 >Topic Progress</h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={topicCounts}>
@@ -453,7 +507,7 @@ const filteredQuestions = questions.filter(q => {
           ))}
         </div>
       </div>
-    </div>
+    
   );
 }
 
