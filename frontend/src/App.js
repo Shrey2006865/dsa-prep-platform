@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import AIHint from './pages/AIHint';
+import AIStudyPlan from './pages/AIStudyPlan';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/ai-hint" element={<AIHint />} />
+        <Route path="/ai-study-plan" element={<AIStudyPlan />} />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
     </Router>

@@ -13,10 +13,12 @@ app.use(express.json());
 const authRoutes = require("./routes/auth");
 const questionRoutes = require("./routes/questions");
 const aiRoutes = require("./routes/ai");
+const aiStudyPlanRoutes = require("./routes/aiStudyPlan");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/ai-study-plan", aiStudyPlanRoutes);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {

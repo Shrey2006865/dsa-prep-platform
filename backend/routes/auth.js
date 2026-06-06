@@ -23,9 +23,13 @@ router.post('/register', async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
     res.status(201).json({ token, user: { id: user._id, username: user.username, email: user.email } });
-  } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
+  } catch (err) {
+  console.error(err);
+  res.status(500).json({
+    message: "Server error",
+    error: err.message
+  });
+}
 });
 
 // Login
@@ -46,8 +50,12 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
     res.json({ token, user: { id: user._id, username: user.username, email: user.email } });
-  } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message
+    });
   }
 });
 

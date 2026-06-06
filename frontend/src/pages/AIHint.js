@@ -17,7 +17,7 @@ function AIHint() {
     setLoading(true);
     setHint('');
     try {
-      const res = await axios.post('https://dsa-prep-platform.onrender.com/api/ai/hint', { question, topic, difficulty });
+      const res = await axios.post('http://localhost:5000/api/ai/hint', { question, topic, difficulty });
       setHint(res.data.hint);
     } catch (err) {
       setHint('Error getting hint. Make sure the backend is running.');

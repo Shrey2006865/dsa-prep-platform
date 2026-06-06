@@ -18,26 +18,30 @@ function Dashboard() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const token = localStorage.getItem('token');
+const fetchQuestions = async () => {
+  try {
+    const res = await axios.get('http://localhost:5000/api/questions/all', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
 
-  const fetchQuestions = async () => {
-    try {
-      const res = await axios.get('https://dsa-prep-platform.onrender.com/api/questions/all', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setQuestions(res.data);
-    } catch (err) {
-      console.log('Error fetching questions');
-    }
-  };
+    setQuestions(res.data);
+  } catch (err) {
+    console.log('Error fetching questions');
+  }
+};
 
-  useEffect(() => { fetchQuestions(); }, []);
+useEffect(() => {
+  fetchQuestions();
+}, []);
 
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
       if (editingQuestion) {
   await axios.put(
-    `https://dsa-prep-platform.onrender.com/api/questions/${editingQuestion._id}`,
+  `http://localhost:5000/api/questions/${editingQuestion._id}`,
     form,
     {
       headers: { Authorization: `Bearer ${token}` }
@@ -47,7 +51,7 @@ function Dashboard() {
   setEditingQuestion(null);
 } else {
   await axios.post(
-    'https://dsa-prep-platform.onrender.com/api/questions/add',
+    'http://localhost:5000/api/questions/add',
     form,
     {
       headers: { Authorization: `Bearer ${token}` }
@@ -64,7 +68,7 @@ function Dashboard() {
   const handleDelete = async (id) => {
   try {
     await axios.delete(
-      `https://dsa-prep-platform.onrender.com/api/questions/${id}`,
+      `http://localhost:5000/api/questions/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -320,6 +324,16 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
           <button style={{...styles.addBtn, marginBottom: 0, background: '#7c3aed'}} onClick={() => navigate('/ai-hint')}>
             🤖 AI Hint
           </button>
+          <button
+  style={{
+    ...styles.addBtn,
+    marginBottom: 0,
+    background: '#06b6d4'
+  }}
+  onClick={() => navigate('/ai-study-plan')}
+>
+  📅 AI Study Plan
+</button>
         </div>
 
         {showForm && (
