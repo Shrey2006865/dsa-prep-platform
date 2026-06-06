@@ -1,47 +1,107 @@
-# DSA Prep Platform 🚀
+# 🚀 DSA Prep Platform
 
-A full-stack DSA preparation platform that helps users track coding progress, manage solved problems, maintain streaks, visualize topic-wise progress, and unlock achievements.
+A full-stack MERN application to track DSA progress, manage solved problems, and generate AI-powered hints and study plans using Gemini AI.
 
 ## 🌐 Live Demo
 
-https://dsa-prep-platform.vercel.app
+Frontend: https://dsa-prep-platform.vercel.app
+
+Backend: https://dsa-prep-platform.onrender.com
 
 ## ✨ Features
 
-* User Authentication (Login/Register)
-* Add, Edit & Delete Questions
-* Search & Filter Questions
-* Topic-wise Progress Tracking
-* Interactive Dashboard
-* Dark / Light Mode
-* Daily Streak Tracking
-* Achievement Badges System
-* Responsive UI
-* Secure Backend APIs
+### 🔐 Authentication
+
+* User Registration
+* User Login
+* JWT Authentication
+
+### 📚 Question Management
+
+* Add Questions
+* Edit Questions
+* Delete Questions
+* Search Questions
+* Filter by Topic
+* Filter by Difficulty
+
+### 📊 Progress Tracking
+
+* Topic-wise Progress
+* Day Streak
+* Achievement Badges
+* Dashboard Statistics
+
+### 🌙 User Experience
+
+* Dark Mode
+* Responsive Design
+
+### 🤖 AI Features
+
+#### AI Hint Generator
+
+Generate hints for DSA problems using Gemini AI.
+
+#### AI Study Plan Generator
+
+Create personalized study roadmaps based on:
+
+* Current Level
+* Goal (Placements, FAANG, etc.)
+* Available Time
 
 ## 🛠 Tech Stack
 
 ### Frontend
 
 * React.js
+* React Router
 * Axios
-* Recharts
-* CSS
 
 ### Backend
 
 * Node.js
 * Express.js
-* MongoDB
 * JWT Authentication
 
-## 📊 Dashboard Features
+### Database
 
-* Total Solved Questions
-* Difficulty Distribution
-* Topic Progress Charts
-* Streak Counter
-* Achievement Unlocks
+* MongoDB Atlas
+* Mongoose
+
+### AI
+
+* Google Gemini API
+
+### Deployment
+
+* Vercel
+* Render
+
+## 📷 Screenshots
+
+### Login Page
+
+<img src="./login-page.png" width="800"/>
+
+### Dashboard Light Mode
+
+<img src="./dashboard-light.png" width="800"/>
+
+### Dashboard Dark Mode
+
+<img src="./dashboard-dark.png" width="800"/>
+
+## 📂 Project Structure
+
+```
+dsa-prep-platform
+│
+├── frontend
+├── backend
+├── README.md
+```
 
 ## 🚀 Installation
 
@@ -49,17 +109,10 @@ https://dsa-prep-platform.vercel.app
 
 ```bash
 git clone https://github.com/Shrey2006865/dsa-prep-platform.git
+cd dsa-prep-platform
 ```
 
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm start
-```
-
-### Backend
+### Backend Setup
 
 ```bash
 cd backend
@@ -67,15 +120,38 @@ npm install
 npm run dev
 ```
 
-## 📸 Screenshots
+### Frontend Setup
 
-Add:
+```bash
+cd frontend
+npm install
+npm start
+```
 
-* Login Page
-* Dashboard
-* Dark Mode Dashboard
-* Achievements Section
+## 🔑 Environment Variables
+
+Create a `.env` file inside the backend folder:
+
+```env
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret_key
+GEMINI_API_KEY=your_gemini_api_key
+PORT=5000
+```
+
+## 🎯 Future Improvements
+
+* Revision Scheduler
+* Analytics Dashboard
+* AI Mock Interview
+* Leaderboard
+* PDF Report Generation
+* Contest Tracker
 
 ## 👨‍💻 Author
 
 Shreyash Tajne
+
+---
+
+⭐ If you like this project, consider giving it a star.
