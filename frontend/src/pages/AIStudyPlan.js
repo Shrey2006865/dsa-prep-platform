@@ -13,7 +13,7 @@ function AIStudyPlan() {
       setLoading(true);
 
       const res = await axios.post(
-        'http://localhost:5000/api/ai-study-plan',
+        'https://dsa-prep-platform.onrender.com/api/ai-study-plan',
         {
           level,
           goal,

@@ -20,7 +20,7 @@ function Dashboard() {
   const token = localStorage.getItem('token');
 const fetchQuestions = async () => {
   try {
-    const res = await axios.get('http://localhost:5000/api/questions/all', {
+    const res = await axios.get('https://dsa-prep-platform.onrender.com/api/questions/all', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -41,7 +41,7 @@ useEffect(() => {
     try {
       if (editingQuestion) {
   await axios.put(
-  `http://localhost:5000/api/questions/${editingQuestion._id}`,
+  `https://dsa-prep-platform.onrender.com/api/questions/${editingQuestion._id}`,
     form,
     {
       headers: { Authorization: `Bearer ${token}` }
@@ -51,7 +51,7 @@ useEffect(() => {
   setEditingQuestion(null);
 } else {
   await axios.post(
-    'http://localhost:5000/api/questions/add',
+    'https://dsa-prep-platform.onrender.com/api/questions/add',
     form,
     {
       headers: { Authorization: `Bearer ${token}` }
@@ -68,7 +68,7 @@ useEffect(() => {
   const handleDelete = async (id) => {
   try {
     await axios.delete(
-      `http://localhost:5000/api/questions/${id}`,
+      `https://dsa-prep-platform.onrender.com/api/questions/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`
