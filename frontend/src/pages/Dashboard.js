@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-
+import {BarChart,Bar,XAxis,YAxis,Tooltip,ResponsiveContainer} from 'recharts';
 function Dashboard() {
   const [questions, setQuestions] = useState([]);
   const [revisionQuestions, setRevisionQuestions] = useState([]);
@@ -140,6 +139,7 @@ useEffect(() => {
   const topics = ['Arrays', 'Linked List', 'Trees', 'Graphs', 'Dynamic Programming', 'Sorting', 'Searching', 'Stacks', 'Queues', 'Strings', 'Math', 'Other'];
   const topicCounts = topics.map(t => ({ topic: t, count: questions.filter(q => q.topic === t).length }));
   const calculateStreak = () => {
+ 
   if (questions.length === 0) return 0;
 
   const dates = [
@@ -166,7 +166,12 @@ useEffect(() => {
 
   return streak;
 };
+const totalSolved = questions.length;
 
+const topicsCovered =
+  [...new Set(questions.map(q => q.topic))].length;
+
+const dueToday = revisionQuestions.length;
 const streak = calculateStreak();
 const filteredQuestions = questions.filter(q => {
   const matchesSearch = q.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -285,6 +290,66 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
 
         <div
   style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '20px',
+    marginBottom: '24px'
+  }}
+>
+ 
+
+  <div
+    style={{
+      background: theme.section,
+      padding: '20px',
+      borderRadius: '16px',
+      textAlign: 'center'
+    }}
+  >
+    <h3>Total Solved</h3>
+    <h1>{totalSolved}</h1>
+  </div>
+
+  <div
+    style={{
+      background: theme.section,
+      padding: '20px',
+      borderRadius: '16px',
+      textAlign: 'center'
+    }}
+  >
+    <h3>Current Streak 🔥</h3>
+    <h1>{calculateStreak()}</h1>
+  </div>
+
+  <div
+    style={{
+      background: theme.section,
+      padding: '20px',
+      borderRadius: '16px',
+      textAlign: 'center'
+    }}
+  >
+    <h3>Topics Covered 📚</h3>
+    <h1>{topicsCovered}</h1>
+  </div>
+
+  <div
+    style={{
+      background: theme.section,
+      padding: '20px',
+      borderRadius: '16px',
+      textAlign: 'center'
+    }}
+  >
+    <h3>Revision Due 📅</h3>
+    <h1>{dueToday}</h1>
+  </div>
+</div>
+    </div>
+
+<div
+  style={{
     ...styles.section,
     background: theme.section
   }}
@@ -314,7 +379,7 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
     ))}
   </div>
 </div>
-         </div>
+         
 <div
   style={{
     ...styles.section,
