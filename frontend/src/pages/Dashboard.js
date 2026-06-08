@@ -6,6 +6,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recha
 
 function Dashboard() {
   const [questions, setQuestions] = useState([]);
+  const [revisionQuestions, setRevisionQuestions] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('All');
@@ -31,9 +32,44 @@ const fetchQuestions = async () => {
     console.log('Error fetching questions');
   }
 };
+const fetchRevisionQuestions = async () => {
+  try {
+    const res = await axios.get(
+      'https://dsa-prep-platform.onrender.com/api/questions/revision-due',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    setRevisionQuestions(res.data);
+    
+  } catch (err) {
+    console.log('Error fetching revision questions');
+  }
+};
+const handleRevision = async (id) => {
+  try {
+    await axios.put(
+      `https://dsa-prep-platform.onrender.com/api/questions/revise/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    fetchRevisionQuestions();
+  } catch (err) {
+    console.log('Error updating revision');
+  }
+};
 
 useEffect(() => {
   fetchQuestions();
+  fetchRevisionQuestions();
 }, []);
 
   const handleAdd = async (e) => {
@@ -279,7 +315,58 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
   </div>
 </div>
          </div>
+<div
+  style={{
+    ...styles.section,
+    background: theme.section
+  }}
+>
+  <h2
+    style={{
+      ...styles.sectionTitle,
+      color: theme.text
+    }}
+  >
+    📅 Questions Due Today
+  </h2>
 
+  {revisionQuestions.length === 0 ? (
+    <p style={{ color: theme.textSecondary }}>
+      No revisions due today 🎉
+    </p>
+  ) : (
+    revisionQuestions.map((q) => (
+      <div
+        key={q._id}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '12px',
+          marginBottom: '10px',
+          borderRadius: '10px',
+          background: darkMode ? '#334155' : '#e2e8f0'
+        }}
+      >
+        <span>{q.title}</span>
+
+        <button
+          onClick={() => handleRevision(q._id)}
+          style={{
+            padding: '8px 14px',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            background: '#6366f1',
+            color: '#fff'
+          }}
+        >
+          Mark Revised
+        </button>
+      </div>
+    ))
+  )}
+</div>
 <div
   style={{
     ...styles.section,

@@ -37,6 +37,20 @@ const questionSchema = new mongoose.Schema({
   solvedAt: {
     type: Date,
     default: Date.now
+  },
+
+  revisionCount: {
+    type: Number,
+    default: 0
+  },
+
+  nextRevisionDate: {
+    type: Date,
+    default: function () {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      return tomorrow;
+    }
   }
 });
 

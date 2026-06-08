@@ -8,19 +8,24 @@ const auth = require('../middleware/auth');
 // Add a question
 router.post('/add', auth, async (req, res) => {
   try {
-    const { title, topic, difficulty, platform, notes, timeTaken } = req.body;
+    const { title, topic, difficulty, platform, notes, timeTaken, revisionCount, nextRevisionDate } = req.body;
 
-    const question = new Question({
-      userId: req.userId,
-      title,
-      topic,
-      difficulty,
-      platform,
-      notes,
-      timeTaken
-    });
+    const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
 
+const question = new Question({
+  userId: req.userId,
+  title,
+  topic,
+  difficulty,
+  platform,
+  notes,
+  timeTaken,
+  revisionCount: 0,
+  nextRevisionDate: tomorrow
+});
     await question.save();
+    
 
     // Update progress
     let progress = await Progress.findOne({ userId: req.userId, topic });
@@ -119,6 +124,63 @@ router.delete('/:id', auth, async (req, res) => {
     res.json({ message: 'Question deleted' });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+// Get questions due for revision
+router.get('/revision-due', auth, async (req, res) => {
+  try {
+    const today = new Date();
+
+    
+
+const questions = await Question.find({
+  userId: req.userId,
+  nextRevisionDate: { $lte: today }
+}).sort({ nextRevisionDate: 1 });
+
+    
+
+    res.json(questions);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      error: error.message
+    });
+  }
+});
+// Mark question as revised
+router.put('/revise/:id', auth, async (req, res) => {
+  try {
+    const question = await Question.findById(req.params.id);
+
+    if (!question) {
+      return res.status(404).json({
+        message: 'Question not found'
+      });
+    }
+
+    question.revisionCount += 1;
+
+    const intervals = [1, 3, 7, 15, 30];
+    const days =
+      intervals[Math.min(question.revisionCount - 1, intervals.length - 1)];
+
+    const nextDate = new Date();
+    nextDate.setDate(nextDate.getDate() + days);
+
+    question.nextRevisionDate = nextDate;
+
+    await question.save();
+
+    res.json({
+      message: 'Revision updated successfully',
+      question
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      error: error.message
+    });
   }
 });
 
