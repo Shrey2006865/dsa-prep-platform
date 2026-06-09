@@ -27,7 +27,7 @@ Do NOT provide the solution.
 `;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-1.5-flash',
       contents: prompt
     });
 
@@ -37,7 +37,8 @@ Do NOT provide the solution.
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: 'Failed to generate question'
+      message: err.message,
+      error: err
     });
   }
 });
@@ -66,7 +67,7 @@ Evaluate the answer and provide:
 `;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-1.5-flash',
       contents: prompt
     });
 
