@@ -201,6 +201,15 @@ const difficultyData = [
 ];
 
 const COLORS = ['#22c55e', '#f59e0b', '#ef4444'];
+const weeklyData = [
+  { day: 'Mon', solved: 3 },
+  { day: 'Tue', solved: 5 },
+  { day: 'Wed', solved: 2 },
+  { day: 'Thu', solved: 6 },
+  { day: 'Fri', solved: 4 },
+  { day: 'Sat', solved: 7 },
+  { day: 'Sun', solved: 3 }
+];
 const achievements = [];
 
 if (questions.length >= 1)
@@ -401,6 +410,32 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
     <Tooltip />
     <Legend />
   </PieChart>
+</div>
+
+<div
+  style={{
+    ...styles.section,
+    background: theme.section,
+    marginBottom: '24px'
+  }}
+>
+  <h2
+    style={{
+      ...styles.sectionTitle,
+      color: theme.text
+    }}
+  >
+    📈 Weekly Progress
+  </h2>
+
+  <ResponsiveContainer width="100%" height={300}>
+    <BarChart data={weeklyData}>
+      <XAxis dataKey="day" />
+      <YAxis />
+      <Tooltip />
+      <Bar dataKey="solved" fill="#6366f1" />
+    </BarChart>
+  </ResponsiveContainer>
 </div>
 
 <div
