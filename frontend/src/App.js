@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import AIHint from './pages/AIHint';
 import AIStudyPlan from './pages/AIStudyPlan';
+import AIInterviewer from './pages/AIInterviewer';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/ai-hint" element={<AIHint />} />
         <Route path="/ai-study-plan" element={<AIStudyPlan />} />
+        <Route path="/interviewer" element={<AIInterviewer />} />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
     </Router>
