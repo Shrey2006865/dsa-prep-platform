@@ -1,10 +1,11 @@
 const express = require('express');
-const router = express.Router();
-const { GoogleGenAI } = require('@google/genai');
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY
-});
+const router = express.Router();
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+
+const genAI = new GoogleGenerativeAI(
+  process.env.GEMINI_API_KEY
+);
 
 router.post('/', async (req, res) => {
   try {
@@ -20,19 +21,40 @@ Available time: ${time}
 Give a week-by-week roadmap with topics and revision suggestions.
 `;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
-      contents: prompt
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-2.5-flash'
     });
 
+   let result;
+
+for (let i = 0; i < 3; i++) {
+  try {
+    result = await model.generateContent(prompt);
+    break;
+  } catch (err) {
+    if (err.status === 503) {
+      console.log('Gemini busy, retrying...');
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    } else {
+      throw err;
+    }
+  }
+}
+if (!result) {
+  return res.status(503).json({
+    message: "Gemini is busy. Please try again later."
+  });
+}
+    const response = result.response;
+
     res.json({
-      plan: response.text
+      plan: response.text()
     });
   } catch (err) {
     console.log(err);
+
     res.status(500).json({
-      message: err.message,
-      error: err
+      message: err.message
     });
   }
 });

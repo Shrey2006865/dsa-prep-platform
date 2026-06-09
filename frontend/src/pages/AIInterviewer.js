@@ -13,7 +13,7 @@ function AIInterviewer() {
       setLoading(true);
 
       const res = await axios.post(
-        'http://localhost:5000/api/interviewer/generate-question',
+        'http://dsa-prep-platform/api/interviewer/generate-question',
         {
           topic
         }
@@ -34,7 +34,7 @@ function AIInterviewer() {
       setLoading(true);
 
       const res = await axios.post(
-        'http://localhost:5000/api/interviewer/evaluate-answer',
+        'http://dsa-prep-platform/api/interviewer/evaluate-answer',
         {
           question,
           answer
