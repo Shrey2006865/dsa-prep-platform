@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {BarChart,Bar,XAxis,YAxis,Tooltip,ResponsiveContainer} from 'recharts';
+import {BarChart,Bar,XAxis,YAxis,Tooltip,ResponsiveContainer,PieChart,Pie,Cell,Legend} from 'recharts';
 function Dashboard() {
   const [questions, setQuestions] = useState([]);
   const [revisionQuestions, setRevisionQuestions] = useState([]);
@@ -172,6 +172,7 @@ const topicsCovered =
   [...new Set(questions.map(q => q.topic))].length;
 
 const dueToday = revisionQuestions.length;
+
 const streak = calculateStreak();
 const filteredQuestions = questions.filter(q => {
   const matchesSearch = q.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -184,6 +185,22 @@ const filteredQuestions = questions.filter(q => {
 
   return matchesSearch && matchesTopic && matchesDifficulty;
 });
+const difficultyData = [
+  {
+    name: 'Easy',
+    value: questions.filter(q => q.difficulty === 'Easy').length
+  },
+  {
+    name: 'Medium',
+    value: questions.filter(q => q.difficulty === 'Medium').length
+  },
+  {
+    name: 'Hard',
+    value: questions.filter(q => q.difficulty === 'Hard').length
+  }
+];
+
+const COLORS = ['#22c55e', '#f59e0b', '#ef4444'];
 const achievements = [];
 
 if (questions.length >= 1)
@@ -347,6 +364,44 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
   </div>
 </div>
     </div>
+
+<div
+  style={{
+    ...styles.section,
+    background: theme.section,
+    marginBottom: '24px'
+  }}
+>
+  <h2
+    style={{
+      ...styles.sectionTitle,
+      color: theme.text
+    }}
+  >
+    📊 Difficulty Distribution
+  </h2>
+
+  <PieChart width={400} height={300}>
+    <Pie
+      data={difficultyData}
+      cx="50%"
+      cy="50%"
+      outerRadius={100}
+      dataKey="value"
+      label
+    >
+      {difficultyData.map((entry, index) => (
+        <Cell
+          key={index}
+          fill={COLORS[index % COLORS.length]}
+        />
+      ))}
+    </Pie>
+
+    <Tooltip />
+    <Legend />
+  </PieChart>
+</div>
 
 <div
   style={{
