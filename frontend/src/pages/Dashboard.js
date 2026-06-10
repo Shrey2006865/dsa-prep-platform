@@ -600,6 +600,16 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
 >
   📅 AI Study Plan
 </button>
+<button
+  style={{
+    ...styles.addBtn,
+    marginBottom: 0,
+    background: '#ec4899'
+  }}
+  onClick={() => navigate('/interviewer')}
+>
+  🎤 AI Interviewer
+</button>
         </div>
 
         {showForm && (
