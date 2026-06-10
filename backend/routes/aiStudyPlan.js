@@ -21,30 +21,44 @@ Available time: ${time}
 Give a week-by-week roadmap with topics and revision suggestions.
 `;
 
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-2.5-flash'
-    });
+    let result;
 
-   let result;
+try {
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.5-flash"
+  });
 
-for (let i = 0; i < 3; i++) {
-  try {
-    result = await model.generateContent(prompt);
-    break;
-  } catch (err) {
-    if (err.status === 503) {
-      console.log('Gemini busy, retrying...');
-      await new Promise(resolve => setTimeout(resolve, 3000));
-    } else {
-      throw err;
+  for (let i = 0; i < 3; i++) {
+    try {
+      result = await model.generateContent(prompt);
+      break;
+    } catch (err) {
+      if (err.status === 503) {
+        console.log("Gemini busy, retrying...");
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      } else {
+        throw err;
+      }
     }
   }
-}
-if (!result) {
-  return res.status(503).json({
-    message: "Gemini is busy. Please try again later."
+
+} catch (err) {
+  console.log("Switching to gemini-2.0-flash");
+
+  const backupModel = genAI.getGenerativeModel({
+    model: "gemini-2.5-flash"
   });
+
+  result = await backupModel.generateContent(prompt);
 }
+
+// if (!result) {
+//   return res.status(503).json({
+//     message: "Gemini is busy. Please try again later."
+//   });
+// }
+
+
     const response = result.response;
 
     res.json({
