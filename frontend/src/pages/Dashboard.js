@@ -5,6 +5,17 @@ import axios from 'axios';
 import {BarChart,Bar,XAxis,YAxis,Tooltip,ResponsiveContainer,PieChart,Pie,Cell,Legend} from 'recharts';
 
 function Dashboard() {
+  const handleCardEnter = (e) => {
+  e.currentTarget.style.transform = 'translateY(-8px)';
+  e.currentTarget.style.boxShadow =
+    '0 0 40px rgba(99,102,241,0.5)';
+};
+
+const handleCardLeave = (e) => {
+  e.currentTarget.style.transform = 'translateY(0)';
+  e.currentTarget.style.boxShadow =
+    '0 0 25px rgba(99,102,241,0.25)';
+};
   const [questions, setQuestions] = useState([]);
   const [revisionQuestions, setRevisionQuestions] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -167,7 +178,7 @@ useEffect(() => {
 
   return streak;
 };
-const totalSolved = questions.length;
+
 
 const topicsCovered =
   [...new Set(questions.map(q => q.topic))].length;
@@ -239,7 +250,9 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
     color: theme.text
   }}
 >
-        <h1 style={styles.logo}>DSA Prep 🚀</h1>
+        <h1 style={styles.logo}>
+  🚀 DSA Prep Platform
+</h1>
         <div>
           <span
   style={{
@@ -275,17 +288,21 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
     ...styles.statCard,
     background: theme.card
   }}
+  onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
 >
-            <h2 style={styles.statNum}>{questions.length}</h2>
-            <p style={styles.statLabel}>Total Solved</p>
+            <h2 style={styles.statNum}>📚 {questions.length}</h2>
+<p style={styles.statLabel}>Total Solved</p>
           </div>
           <div
   style={{
     ...styles.statCard,
     background: theme.card
   }}
+  onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
 >
-            <h2 style={styles.statNum}>{questions.filter(q => q.difficulty === 'Easy').length}</h2>
+            <h2 style={styles.statNum}>🟢 {questions.filter(q => q.difficulty === 'Easy').length}</h2>
             <p style={styles.statLabel}>Easy</p>
           </div>
           <div
@@ -293,8 +310,10 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
     ...styles.statCard,
     background: theme.card
   }}
+  onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
 >
-            <h2 style={styles.statNum}>{questions.filter(q => q.difficulty === 'Medium').length}</h2>
+            <h2 style={styles.statNum}>🟡 {questions.filter(q => q.difficulty === 'Medium').length}</h2>
             <p style={styles.statLabel}>Medium</p>
           </div>
           <div
@@ -302,8 +321,10 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
     ...styles.statCard,
     background: theme.card
   }}
+  onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
 >
-            <h2 style={styles.statNum}>{questions.filter(q => q.difficulty === 'Hard').length}</h2>
+            <h2 style={styles.statNum}>🔴 {questions.filter(q => q.difficulty === 'Hard').length}</h2>
             <p style={styles.statLabel}>Hard</p>
           </div>
           <div
@@ -311,6 +332,8 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
     ...styles.statCard,
     background: theme.card
   }}
+ onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
 >
             <h2 style={styles.statNum}>🔥 {streak}</h2>
             <p style={styles.statLabel}>Day Streak</p>
@@ -334,9 +357,12 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
       borderRadius: '16px',
       textAlign: 'center'
     }}
+    onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
   >
-    <h3>Total Solved</h3>
-    <h1>{totalSolved}</h1>
+    
+   <h3>Achievements 🏆</h3>
+<h1>{questions.length}</h1>
   </div>
 
   <div
@@ -346,18 +372,8 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
       borderRadius: '16px',
       textAlign: 'center'
     }}
-  >
-    <h3>Current Streak 🔥</h3>
-    <h1>{calculateStreak()}</h1>
-  </div>
-
-  <div
-    style={{
-      background: theme.section,
-      padding: '20px',
-      borderRadius: '16px',
-      textAlign: 'center'
-    }}
+    onMouseEnter={handleCardEnter}
+    onMouseLeave={handleCardLeave}
   >
     <h3>Topics Covered 📚</h3>
     <h1>{topicsCovered}</h1>
@@ -370,10 +386,26 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
       borderRadius: '16px',
       textAlign: 'center'
     }}
+    onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
   >
     <h3>Revision Due 📅</h3>
     <h1>{dueToday}</h1>
+    
   </div>
+  <div
+  style={{
+    background: theme.section,
+    padding: '20px',
+    borderRadius: '16px',
+    textAlign: 'center'
+  }}
+  onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
+>
+  <h3>Consistency 🎯</h3>
+  <h1>78%</h1>
+</div>
 </div>
     </div>
 
@@ -383,12 +415,16 @@ if (new Set(questions.map(q => q.topic)).size >= 5)
     background: theme.section,
     marginBottom: '24px'
   }}
+  onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
 >
   <h2
     style={{
       ...styles.sectionTitle,
       color: theme.text
     }}
+    onMouseEnter={handleCardEnter}
+onMouseLeave={handleCardLeave}
   >
     📊 Difficulty Distribution
   </h2>
@@ -815,10 +851,11 @@ const styles = {
   backdropFilter: 'blur(10px)'
 },
   logo: {
-  color: '#6366f1',
+  color: '#38bdf8',
   margin: 0,
-  fontSize: '2rem',
-  fontWeight: '700'
+  fontSize: '2.2rem',
+  fontWeight: '800',
+  letterSpacing: '1px'
 },
   welcome: { color: '#94a3b8', marginRight: '16px' },
   logoutBtn: {
@@ -842,9 +879,10 @@ const styles = {
   padding: '25px',
   borderRadius: '16px',
   textAlign: 'center',
-  boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
+  boxShadow: '0 0 25px rgba(99,102,241,0.25)',
   transition: '0.3s',
-  border: '1px solid rgba(255,255,255,0.05)'
+  border: '1px solid rgba(255,255,255,0.05)',
+  cursor: 'pointer'
 },
   statNum: {
   color: '#6366f1',
@@ -858,7 +896,7 @@ const styles = {
   padding: '30px',
   borderRadius: '20px',
   marginBottom: '30px',
-  boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
+  boxShadow: '0 0 25px rgba(99,102,241,0.15)',
   border: '1px solid rgba(255,255,255,0.05)'
 },
   sectionTitle: {
@@ -906,7 +944,7 @@ const styles = {
   borderRadius: '18px',
   marginBottom: '12px',
   border: '1px solid rgba(255,255,255,0.05)',
-  boxShadow: '0 8px 25px rgba(0,0,0,0.08)',
+  boxShadow: '0 0 20px rgba(99,102,241,0.12)',
   transition: '0.3s'
 },
   questionTitle: { color: '#fff', margin: 0, fontSize: '14px' },

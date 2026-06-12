@@ -6,10 +6,12 @@ import Dashboard from './pages/Dashboard';
 import AIHint from './pages/AIHint';
 import AIStudyPlan from './pages/AIStudyPlan';
 import AIInterviewer from './pages/AIInterviewer';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
