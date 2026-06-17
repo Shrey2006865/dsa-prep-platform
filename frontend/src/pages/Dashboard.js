@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
+import jsPDF from 'jspdf';
+// import autoTable from 'jspdf-autotable';
+import 'react-calendar-heatmap/dist/styles.css';
 
 function Dashboard() {
   const handleCardEnter = (e) => {
@@ -14,6 +17,39 @@ function Dashboard() {
     e.currentTarget.style.transform = 'translateY(0)';
     e.currentTarget.style.boxShadow = '0 0 25px rgba(99,102,241,0.25)';
   };
+  const exportPDF = () => {
+  const doc = new jsPDF();
+
+  doc.setFontSize(22);
+  doc.text('DSA Prep Platform Report', 20, 20);
+
+  doc.setFontSize(14);
+  doc.text(`Total Solved: ${questions.length}`, 20, 45);
+
+  doc.text(
+    `Easy: ${questions.filter(q => q.difficulty === 'Easy').length}`,
+    20,
+    60
+  );
+
+  doc.text(
+    `Medium: ${questions.filter(q => q.difficulty === 'Medium').length}`,
+    20,
+    75
+  );
+
+  doc.text(
+    `Hard: ${questions.filter(q => q.difficulty === 'Hard').length}`,
+    20,
+    90
+  );
+
+  doc.text(`Topics Covered: ${topicsCovered}`, 20, 105);
+
+  doc.text('Consistency: 78%', 20, 120);
+
+  doc.save('DSA_Report.pdf');
+};
 
   const [questions, setQuestions] = useState([]);
   const [revisionQuestions, setRevisionQuestions] = useState([]);
@@ -164,6 +200,19 @@ function Dashboard() {
     { day: 'Sat', solved: 7 },
     { day: 'Sun', solved: 3 }
   ];
+  const quotes = [
+  "Consistency beats intensity. 🚀",
+  "Solve one problem today, thank yourself tomorrow. 💪",
+  "Small progress is still progress. 📈",
+  "Practice makes progress, not perfection. 🌟",
+  "Every bug you fix makes you stronger. 🐛",
+  "Great developers are built one problem at a time. 💻",
+  "Stay patient and trust the process. 🔥"
+];
+
+const dailyQuote =
+  quotes[new Date().getDate() % quotes.length];
+
 
   const achievements = [];
   if (questions.length >= 1) achievements.push("🥉 First Problem Solved");
@@ -272,8 +321,75 @@ function Dashboard() {
         {/* Activity Heatmap */}
         <div style={{ ...styles.section, background: theme.section, marginBottom: '24px' }}>
           <h2 style={{ ...styles.sectionTitle, color: theme.text }}>🔥 Activity Heatmap</h2>
-          <h3 style={{ color: theme.text }}>GitHub Heatmap Coming Soon 🚀</h3>
+    <div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(7, 20px)',
+    gap: '6px',
+    marginTop: '20px'
+  }}
+>
+  {Array.from({ length: 35 }).map((_, i) => (
+    <div
+      key={i}
+      style={{
+        width: '20px',
+        height: '20px',
+        borderRadius: '4px',
+        background:
+          i % 5 === 0
+            ? '#22c55e'
+            : i % 3 === 0
+            ? '#15803d'
+            : '#1e293b'
+      }}
+    />
+  ))}
+</div>
         </div>
+        <div
+  style={{
+    ...styles.section,
+    background: theme.section,
+    marginBottom: '24px'
+  }}
+>
+  <h2
+    style={{
+      ...styles.sectionTitle,
+      color: theme.text
+    }}
+  >
+    💡 Daily Motivation
+  </h2>
+
+  <div
+    style={{
+      background: theme.card,
+      padding: '25px',
+      borderRadius: '15px',
+      textAlign: 'center'
+    }}
+  >
+    <h3
+      style={{
+        color: '#60a5fa',
+        fontStyle: 'italic',
+        marginBottom: '15px'
+      }}
+    >
+      "{dailyQuote}"
+    </h3>
+
+    <p
+      style={{
+        color: theme.textSecondary
+      }}
+    >
+      Keep solving one problem every day 🚀
+    </p>
+  </div>
+</div>
 
         {/* Achievements */}
         <div style={{ ...styles.section, background: theme.section, marginBottom: '24px' }}>
@@ -341,6 +457,20 @@ function Dashboard() {
           <button style={{ ...styles.addBtn, marginBottom: 0, background: '#ec4899' }} onClick={() => navigate('/interviewer')}>
             🎤 AI Interviewer
           </button>
+          <button
+  onClick={exportPDF}
+  style={{
+    background: '#10b981',
+    color: '#fff',
+    border: 'none',
+    padding: '14px 24px',
+    borderRadius: '12px',
+    cursor: 'pointer',
+    fontWeight: 'bold'
+  }}
+>
+  📄 Export Report
+</button>
         </div>
 
         {/* Add/Edit Form */}

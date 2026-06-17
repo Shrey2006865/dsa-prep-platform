@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+.react-calendar-heatmap text {
+  fill: #94a3b8;
+  font-size: 10px;
+}
+
+.react-calendar-heatmap .color-empty {
+  fill: #1e293b;
+}
+
+.react-calendar-heatmap .color-scale-1 {
+  fill: #22c55e;
+}
+
+.react-calendar-heatmap .color-scale-2 {
+  fill: #16a34a;
+}
+
+.react-calendar-heatmap .color-scale-3 {
+  fill: #15803d;
+}
+
+.react-calendar-heatmap .color-scale-4 {
+  fill: #166534;
+}
