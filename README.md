@@ -1,126 +1,143 @@
 # 🚀 DSA Prep Platform
 
-A full-stack MERN application to track DSA progress, manage solved problems, and generate AI-powered hints and study plans using Gemini AI.
+A full-stack MERN application that helps users track their DSA journey with AI-powered features using Gemini AI.
+
+---
 
 ## 🌐 Live Demo
 
-Frontend: https://dsa-prep-platform.vercel.app
+### Frontend
+https://dsa-prep-platform.vercel.app
 
-Backend: https://dsa-prep-platform.onrender.com
+### Backend
+https://dsa-prep-platform.onrender.com
+
+---
 
 ## ✨ Features
 
 ### 🔐 Authentication
-
-* User Registration
-* User Login
-* JWT Authentication
+- User Registration
+- User Login
+- JWT Authentication
 
 ### 📚 Question Management
+- Add Questions
+- Edit Questions
+- Delete Questions
+- Search Questions
+- Filter by Topic
+- Filter by Difficulty
 
-* Add Questions
-* Edit Questions
-* Delete Questions
-* Search Questions
-* Filter by Topic
-* Filter by Difficulty
+### 📊 Dashboard Analytics
+- Total Solved Problems
+- Easy / Medium / Hard Count
+- Day Streak
+- Consistency Score
+- Topics Covered
+- Revision Due Counter
+- Difficulty Distribution Pie Chart
+- Weekly Progress Bar Chart
+- Topic Progress Chart
+- Recent Solved Questions
 
-### 📊 Progress Tracking
+### 🏆 Achievements System
+- 🥉 First Problem Solved
+- 🥈 10 Problems Solved
+- 🧠 DSA Explorer
 
-* Topic-wise Progress
-* Day Streak
-* Achievement Badges
-* Dashboard Statistics
-
-### 🌙 User Experience
-
-* Dark Mode
-* Responsive Design
+### 🔥 Activity Heatmap
+- GitHub-style contribution heatmap
 
 ### 🤖 AI Features
-
 #### AI Hint Generator
+- Topic-wise hints
+- Concept explanations
 
-Generate hints for DSA problems using Gemini AI.
+#### AI Study Plan
+- Personalized DSA roadmap
+- Beginner to Advanced plans
 
-#### AI Study Plan Generator
+#### AI Interviewer
+- Technical interview questions
+- AI-generated interview practice
 
-Create personalized study roadmaps based on:
+### 📄 Export Report
+- Download progress report as PDF
 
-* Current Level
-* Goal (Placements, FAANG, etc.)
-* Available Time
+### 💡 Daily Motivation
+- Motivational quote section
+
+### 🌙 Theme Support
+- Dark Mode
+- Light Mode
+
+---
 
 ## 🛠 Tech Stack
 
 ### Frontend
-
-* React.js
-* React Router
-* Axios
+- React.js
+- CSS
+- Recharts
+- React Calendar Heatmap
+- jsPDF
 
 ### Backend
-
-* Node.js
-* Express.js
-* JWT Authentication
+- Node.js
+- Express.js
 
 ### Database
+- MongoDB Atlas
 
-* MongoDB Atlas
-* Mongoose
+### Authentication
+- JWT
+- bcryptjs
 
 ### AI
+- Google Gemini AI
 
-* Google Gemini API
-
-### Deployment
-
-* Vercel
-* Render
-
-## 📷 Screenshots
-
-### Login Page
-
-<img src="./login-page.png" width="800"/>
-
-### Dashboard Light Mode
-
-<img src="./dashboard-light.png" width="800"/>
-
-### Dashboard Dark Mode
-
-<img src="./dashboard-dark.png" width="800"/>
+---
 
 ## 📂 Project Structure
 
 ```
 dsa-prep-platform
 │
-├── frontend
 ├── backend
+│   ├── routes
+│   ├── models
+│   ├── server.js
+│
+├── frontend
+│   ├── src
+│   │   ├── components
+│   │   ├── pages
+│   │   └── App.js
+│
+├── screenshots
 ├── README.md
 ```
 
-## 🚀 Installation
+---
+
+## ⚙️ Installation
 
 ### Clone Repository
 
 ```bash
 git clone https://github.com/Shrey2006865/dsa-prep-platform.git
-cd dsa-prep-platform
 ```
 
-### Backend Setup
+### Backend
 
 ```bash
 cd backend
 npm install
-npm run dev
+npm start
 ```
 
-### Frontend Setup
+### Frontend
 
 ```bash
 cd frontend
@@ -128,30 +145,64 @@ npm install
 npm start
 ```
 
-## 🔑 Environment Variables
+---
 
-Create a `.env` file inside the backend folder:
+## 📷 Screenshots
 
-```env
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_secret_key
-GEMINI_API_KEY=your_gemini_api_key
-PORT=5000
-```
+### 🔐 Login Page
 
-## 🎯 Future Improvements
-
-* Revision Scheduler
-* Analytics Dashboard
-* AI Mock Interview
-* Leaderboard
-* PDF Report Generation
-* Contest Tracker
-
-## 👨‍💻 Author
-
-Shreyash Tajne
+<img src="./screenshots/DSA-Login page.png" width="900"/>
 
 ---
 
-⭐ If you like this project, consider giving it a star.
+### 🌙 Dashboard Dark Mode
+
+<img src="./screenshots/DSA-dark mode.png" width="900"/>
+
+---
+
+### ☀️ Dashboard Light Mode
+
+<img src="./screenshots/DSA-Light mode.png" width="900"/>
+
+---
+
+### 🤖 AI Hint
+
+<img src="./screenshots/DSA-AI page .png" width="900"/>
+
+---
+
+### 📅 AI Study Plan
+
+<img src="./screenshots/DSA-AI Study Plan interface.png" width="900"/>
+
+---
+
+### 🎤 AI Interviewer
+
+<img src="./screenshots/DSA_AI Interviewer page.png" width="900"/>
+
+---
+
+## 🚀 Future Improvements
+
+- Email Authentication
+- Notes for Questions
+- Revision Scheduler
+- LeetCode API Integration
+- User Profile Page
+- Leaderboard System
+
+---
+
+## 👨‍💻 Author
+
+**Shreyash Tajne**
+
+GitHub:
+https://github.com/Shrey2006865
+
+---
+
+⭐ If you like this project, don't forget to star the repository!
